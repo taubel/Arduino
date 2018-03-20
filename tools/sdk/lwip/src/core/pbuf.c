@@ -625,10 +625,9 @@ pbuf_header(struct pbuf *p, s16_t header_size_increment)
       /* increase payload pointer */
       p->payload = (u8_t *)p->payload - header_size_increment;
     } else {
-	    return 1;
       /* cannot expand payload to front (yet!)
        * bail out unsuccesfully */
-      if (type == PBUF_REF) {
+      if ((type == PBUF_REF) && (p->eb != NULL)) {
     	  /* increase payload pointer */
         p->payload = (u8_t *)p->payload - header_size_increment;
       } else {
